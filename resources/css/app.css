@@ -1,0 +1,46 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* FORÇAR O PADRÃO GOVBR SOBRE O TAILWIND */
+/* resources/css/app.css */
+
+/* Garante que o corpo do site fique totalmente preto */
+body.br-high-contrast {
+    background-color: #000 !important;
+    color: #fff !important;
+}
+
+/* Força todos os elementos (cards, botões, painéis) a ficarem pretos com texto branco */
+body.br-high-contrast .br-header, 
+body.br-high-contrast .br-menu .menu-panel,
+body.br-high-contrast .br-card,
+body.br-high-contrast [class*="bg-blue-"], /* Seus cards azuis do Tailwind */
+body.br-high-contrast .bg-white {
+    background-color: #000 !important;
+    color: #fff !important;
+    border: 1px solid #fff !important; /* Adiciona borda para distinguir os elementos */
+}
+
+/* Garante que links, ícones e spans fiquem brancos */
+body.br-high-contrast a,
+body.br-high-contrast i,
+body.br-high-contrast span,
+body.br-high-contrast p,
+body.br-high-contrast h1,
+body.br-high-contrast h2 {
+    color: #fff !important;
+}
+
+/* Ajuste para o input de busca não sumir */
+body.br-high-contrast input {
+    background-color: #000 !important;
+    color: #fff !important;
+    border: 1px solid #fff !important;
+}
+
+/* Inverte a cor do logotipo para ficar branco no fundo preto */
+body.br-high-contrast .header-logo img,
+body.br-high-contrast .menu-title img {
+    filter: brightness(0) invert(1) !important;
+}
