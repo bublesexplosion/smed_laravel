@@ -3,6 +3,7 @@ import { Head, Link, router } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
 import WelcomeFooter from '@/Components/WelcomeFooter.vue';
 import WelcomeHeader from '@/Components/WelcomeHeader.vue';
+import SidebarInstitucional from '@/Components/SidebarInstitucional.vue';
 
 const props = defineProps({
     noticias: { type: Object, required: true },
@@ -117,6 +118,9 @@ const linkProximo = computed(() => props.noticias.links[props.noticias.links.len
                     <p>Acompanhe as principais informações da Secretaria Municipal de Educação.</p>
                 </div>
             </div>
+
+            <div class="row">
+                <div class="col-md-8">
 
             <form class="br-card mb-2" @submit.prevent="pesquisar">
                 <div class="card-content">
@@ -280,6 +284,12 @@ const linkProximo = computed(() => props.noticias.links[props.noticias.links.len
                     </li>
                 </ul>
             </nav>
+
+                </div>
+                <div class="col-md-4">
+                    <SidebarInstitucional />
+                </div>
+            </div>
         </main>
 
         <WelcomeFooter />

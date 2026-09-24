@@ -21,11 +21,14 @@ class HandleInertiaRequests extends Middleware
                 'user' => $request->user(),
                 'menu' => $request->user() ? $request->user()->getMenuData() : [],
             ],
-           
+            'menuData' => \App\Models\MenuPrincipal::whereNull('parent_id')
+                ->with('subitems.subitems.subitems.subitems') // Suporta até 5 níveis de profundidade
+                ->orderBy('ordem')
+                ->get(),
         ]);
     }
 
-    
+
     private function prepareMenuUrls($item)
 {
     // Não altera absolutamente nada, envia o link puro do banco

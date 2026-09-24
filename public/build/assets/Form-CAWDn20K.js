@@ -1,0 +1,1 @@
+import{E as e,M as t,_ as n,g as r}from"./app-Cmy70LRy.js";import{t as i}from"./AdminLayout-CC-OrcIY.js";var a={__name:`Form`,setup(a){return(a,o)=>(e(),n(i,null,{default:t(()=>[...o[0]||=[r(`div`,{class:`p-4`},[r(`h1`,null,`Em desenvolvimento`)],-1)]]),_:1}))}};export{a as default};

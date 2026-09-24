@@ -13,8 +13,8 @@
     </div>
 
     <main class="container py-4 bg-white shadow-sm rounded">
-        <div class="row justify-content-center">
-            <div class="col-md-10 col-lg-8">
+        <div class="row">
+            <div class="col-md-8">
 
                 <Link href="/noticias" class="br-button primary mb-4 ms-2">
                     <i class="fas fa-newspaper me-2"></i> Ver notícias
@@ -35,6 +35,9 @@
                 </article>
 
             </div>
+            <div class="col-md-4">
+                <SidebarInstitucional />
+            </div>
         </div>
     </main>
     <!-- O Footer entra aqui -->
@@ -48,6 +51,7 @@
     import WelcomeHeader from '@/Components/WelcomeHeader.vue';
     import { ref, onMounted, onUnmounted, computed } from 'vue';
     import WelcomeFooter from '@/Components/WelcomeFooter.vue';
+    import SidebarInstitucional from '@/Components/SidebarInstitucional.vue';
 
    const props = defineProps({
     errors: Object,

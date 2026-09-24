@@ -25,13 +25,6 @@ use App\Http\Controllers\NoticiaController;
               'canRegister' => Route::has('register'),
               'laravelVersion' => Application::VERSION,
               'phpVersion' => PHP_VERSION,
-
-               'menuData' => \App\Models\MenuPrincipal::whereNull('parent_id')
-                      ->with('subitems.subitems') // Isso traz os 3 níveis
-                      ->orderBy('ordem')
-                      ->get(),
-
-
               ]);
             })->name('Welcome');
 
