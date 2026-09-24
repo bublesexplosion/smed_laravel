@@ -8,22 +8,25 @@
 
         <!---define o favicon a ser usado--->
         <link rel="icon" type="image/ico" href="/images/favicon.ico?v=1">
-        
+
          <!-- Fonts -->
         <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" />
 
-        <!-- Fontes e Ícones Oficiais -->
-        <link rel="stylesheet" href="https://cloudflare.com">
-        <link rel="stylesheet" href="https://googleapis.com">
-        
+        <!-- Gov.br Design System - CSS (URL Corrigida) -->
+        <link rel="stylesheet" href="https://cdn.gov.br/design-system/core.css">
+        <!-- Font Awesome para os ícones de seta (fa-angle-down) -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
         <!-- Scripts -->
         @routes
         @vite(['resources/js/app.js', "resources/js/Pages/{$page['component']}.vue"])
         @inertiaHead
     </head>
     <body class="font-sans antialiased">
+        <!-- Gov.br Design System - JS (URL Corrigida) -->
+        <script src="https://cdn.gov.br/design-system/core.js"></script>
+        
         @inertia
-       
     </body>
 </html>
