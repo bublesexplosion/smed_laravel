@@ -106,13 +106,14 @@
                 <HeaderDropdown />
 
                 <div class="header-search-trigger">
-                  <button class="br-button circle" type="button" aria-label="Abrir Busca"><i class="fas fa-search" aria-hidden="true"></i></button>
+                  <button class="br-button circle" type="button" aria-label="Abrir Busca" data-toggle="search" data-target=".header-search"><i class="fas fa-search" aria-hidden="true"></i></button>
                 </div>
                 <!----entrar--------------->
                 <div class="header-login">
                   <div class="header-sign-in">
-                    <Link :href="route('login')" class="br-button secondary small rounded-pill">
-                      ENTRAR
+                    <Link :href="route('login')" class="br-sign-in small">
+                      <i class="fas fa-user" aria-hidden="true"></i>
+                      <span class="d-sm-inline">Entrar</span>
                     </Link>
                   </div>
                 </div>
@@ -138,6 +139,18 @@
               <div class="header-info">
                 <div class="header-title">Portal Institucional</div>
               </div>
+            </div>
+            <div class="header-search">
+              <div class="br-input has-icon">
+                <label for="header-searchbox">Texto da pesquisa</label>
+                <input id="header-searchbox" type="text" placeholder="O que você procura?" />
+                <button class="br-button circle small" type="button" aria-label="Pesquisar">
+                  <i class="fas fa-search" aria-hidden="true"></i>
+                </button>
+              </div>
+              <button class="br-button circle search-close ml-1" type="button" aria-label="Fechar Busca" data-dismiss="search">
+                <i class="fas fa-times" aria-hidden="true"></i>
+              </button>
             </div>
         </div>
 
@@ -242,6 +255,14 @@
 </template>
 
 <style scoped>
+    /* Garante que os links do cabeçalho fiquem sem sublinhado, independente da ordem
+       de carregamento entre o reset do Tailwind e o do AdminLTE/Bootstrap */
+    .header-links .br-item,
+    .header-top a,
+    .menu-item {
+      text-decoration: none;
+    }
+
     /* 1. ESTRUTURA EXTERNA (Container e Scrim) */
     .br-menu {
       display: none;

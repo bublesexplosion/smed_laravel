@@ -3,6 +3,7 @@ import { Head, Link } from '@inertiajs/vue3';
 import { computed, ref } from 'vue';
 import WelcomeFooter from '@/Components/WelcomeFooter.vue';
 import WelcomeHeader from '@/Components/WelcomeHeader.vue';
+import { resolveMidiaUrl, isImagemMidia, isPdfMidia } from '@/Composables/useNoticiaMidia';
 
 const props = defineProps({ noticia: { type: Object, required: true } });
 const midiaAberta = ref(null);
@@ -12,24 +13,11 @@ const formatarData = (data) => data
     ? new Intl.DateTimeFormat('pt-BR', { dateStyle: 'long', timeStyle: 'short' }).format(new Date(data))
     : 'Data não informada';
 
-const urlMidia = (midia) => {
-    const url = midia.url || midia.caminho_relativo || '';
-    const wpContentIndex = url.indexOf('/wp-content/');
-
-    return wpContentIndex >= 0
-        ? `http://localhost:8000${url.slice(wpContentIndex)}`
-        : url;
-};
+const urlMidia = resolveMidiaUrl;
 
 const midias = computed(() => props.noticia.midias || []);
-const fotos = computed(() => midias.value.filter((midia) => {
-    const mime = (midia.mime_type || '').toLowerCase();
-    return mime.startsWith('image/') || /\.(jpg|jpeg|png|gif|webp|svg)$/i.test(urlMidia(midia));
-}));
-const pdfs = computed(() => midias.value.filter((midia) => {
-    const mime = (midia.mime_type || '').toLowerCase();
-    return mime === 'application/pdf' || /\.pdf$/i.test(urlMidia(midia));
-}));
+const fotos = computed(() => midias.value.filter(isImagemMidia));
+const pdfs = computed(() => midias.value.filter(isPdfMidia));
 const midiaAtual = computed(() => fotos.value[indiceMidia.value] || midiaAberta.value);
 
 const abrirMidia = (midia, indice) => {
@@ -78,67 +66,69 @@ const navegarMidia = (direcao) => {
             </nav>
 
             <article class="br-card">
-                <header class="br-card-header text-center">
+                <div class="card-header text-center">
                     <span class="br-tag">Notícia</span>
                     <h1 class="h2 mt-3 mb-2">{{ noticia.titulo || 'Sem título' }}</h1>
-                    <p class="text-base mb-0">Informação da Secretaria Municipal de Educação</p>
-                </header>
+                    <p class="mb-0">Informação da Secretaria Municipal de Educação</p>
+                </div>
 
-                <div class="br-card-content">
+                <div class="card-content">
                     <span class="br-divider my-4"></span>
 
-                    <div class="br-grid-row align-items-start">
-                        <div v-if="fotos.length && urlMidia(fotos[0])" class="br-grid-col-12 br-grid-col-md-4 mb-4 mb-md-0">
-                            <button class="br-card mb-0 p-0 border-0 bg-transparent text-left w-100" type="button" @click="abrirMidia(fotos[0], 0)">
-                                <img
-                                    :src="urlMidia(fotos[0])"
-                                    :alt="fotos[0].titulo || 'Imagem da notícia'"
-                                />
-                                <div class="br-card-content text-base">
-                                    {{ fotos[0].titulo || 'Imagem da notícia' }}
+                    <div class="row align-items-start">
+                        <div v-if="fotos.length && urlMidia(fotos[0])" class="col-12 col-md-4 mb-4 mb-md-0">
+                            <button class="br-card mb-0" type="button" @click="abrirMidia(fotos[0], 0)">
+                                <div class="card-content">
+                                    <img
+                                        :src="urlMidia(fotos[0])"
+                                        :alt="fotos[0].titulo || 'Imagem da notícia'"
+                                    />
+                                    <p class="mb-0">{{ fotos[0].titulo || 'Imagem da notícia' }}</p>
                                 </div>
                             </button>
                         </div>
 
-                        <div class="br-grid-col-12" :class="{ 'br-grid-col-md-8': fotos.length && urlMidia(fotos[0]) }">
-                            <div class="d-flex align-items-center flex-wrap text-base mb-4">
-                                <span>
+                        <div class="col-12" :class="{ 'col-md-8': fotos.length && urlMidia(fotos[0]) }">
+                            <div class="row align-items-center mb-4">
+                                <div class="col-auto">
                                     <i class="fas fa-calendar-alt mr-1" aria-hidden="true"></i>
                                     Publicado em {{ formatarData(noticia.data_publicacao) }}
-                                </span>
-                                <span class="br-divider vertical mx-3"></span>
-                                <span>{{ noticia.tipo === 'page' ? 'Página institucional' : 'Comunicado' }}</span>
+                                </div>
+                                <span class="br-divider vertical mx-2"></span>
+                                <div class="col-auto">{{ noticia.tipo === 'page' ? 'Página institucional' : 'Comunicado' }}</div>
                             </div>
 
                             <div v-if="noticia.resumo" class="br-message info mb-4" role="note">
                                 <div class="icon"><i class="fas fa-info-circle" aria-hidden="true"></i></div>
                                 <div class="content">
                                     <span class="message-title">Resumo</span>
-                                    <span>{{ noticia.resumo }}</span>
+                                    <span class="message-body">{{ noticia.resumo }}</span>
                                 </div>
                             </div>
 
-                            <div class="text-base" v-html="noticia.conteudo || '<p>Esta notícia não possui conteúdo.</p>'"></div>
+                            <div v-html="noticia.conteudo || '<p>Esta notícia não possui conteúdo.</p>'"></div>
                         </div>
                     </div>
                 </div>
 
-                <footer class="br-card-footer d-flex justify-content-between align-items-center flex-wrap gap-2">
-                    <span class="text-base">SMED • Comunicação institucional</span>
-                </footer>
+                <div class="card-footer row align-items-center">
+                    <div class="col">SMED • Comunicação institucional</div>
+                </div>
             </article>
 
-            <div class="d-flex justify-content-center mt-4 mb-5">
-                <Link :href="route('noticias.index')" class="br-button secondary">
-                    <i class="fas fa-arrow-left" aria-hidden="true"></i>
-                    <span>Voltar para notícias</span>
-                </Link>
+            <div class="row justify-content-center mt-4 mb-5">
+                <div class="col-auto">
+                    <Link :href="route('noticias.index')" class="br-button secondary">
+                        <i class="fas fa-arrow-left" aria-hidden="true"></i>
+                        <span>Voltar para notícias</span>
+                    </Link>
+                </div>
             </div>
 
             <section v-if="fotos.length > 1" class="mt-5">
-                <div class="d-flex align-items-center mb-3">
-                    <i class="fas fa-images mr-2" aria-hidden="true"></i>
-                    <h2 class="h4 mb-0">Galeria de fotos</h2>
+                <div class="row align-items-center mb-3">
+                    <div class="col-auto"><i class="fas fa-images" aria-hidden="true"></i></div>
+                    <div class="col"><h2 class="h4 mb-0">Galeria de fotos</h2></div>
                 </div>
                 <div class="br-carousel" data-stage="in" aria-label="Galeria de fotos da notícia" aria-roledescription="carousel">
                     <div class="carousel-button">
@@ -156,10 +146,12 @@ const navegarMidia = (direcao) => {
                             aria-roledescription="slide"
                             :aria-label="`Foto ${index + 1} de ${fotos.length}`"
                         >
-                            <div class="carousel-content text-center p-2">
-                                <button class="br-card p-0 border-0 bg-transparent text-left" type="button" @click="abrirMidia(midia, index)">
-                                    <img v-if="urlMidia(midia)" class="img-fluid" :src="urlMidia(midia)" :alt="midia.titulo || `Foto ${index + 1}`" />
-                                    <div class="br-card-content text-base">{{ midia.titulo || `Foto ${index + 1}` }}</div>
+                            <div class="carousel-content text-center">
+                                <button class="br-card" type="button" @click="abrirMidia(midia, index)">
+                                    <div class="card-content">
+                                        <img v-if="urlMidia(midia)" :src="urlMidia(midia)" :alt="midia.titulo || `Foto ${index + 1}`" />
+                                        <p class="mb-0">{{ midia.titulo || `Foto ${index + 1}` }}</p>
+                                    </div>
                                 </button>
                             </div>
                         </div>
@@ -173,9 +165,9 @@ const navegarMidia = (direcao) => {
             </section>
 
             <section v-if="pdfs.length" class="mt-5" aria-labelledby="documentos-noticia">
-                <div class="d-flex align-items-center mb-3">
-                    <i class="fas fa-file-pdf mr-2" aria-hidden="true"></i>
-                    <h2 id="documentos-noticia" class="h4 mb-0">Documentos relacionados</h2>
+                <div class="row align-items-center mb-3">
+                    <div class="col-auto"><i class="fas fa-file-pdf" aria-hidden="true"></i></div>
+                    <div class="col"><h2 id="documentos-noticia" class="h4 mb-0">Documentos relacionados</h2></div>
                 </div>
                 <ol class="br-list">
                     <li v-for="(pdf, index) in pdfs" :key="pdf.id" class="br-item">
@@ -203,15 +195,14 @@ const navegarMidia = (direcao) => {
                     <div class="br-modal-body text-center">
                         <img
                             v-if="midiaAtual && urlMidia(midiaAtual)"
-                            class="img-fluid"
                             :src="urlMidia(midiaAtual)"
                             :alt="midiaAtual.titulo || 'Imagem ampliada da notícia'"
                         />
-                        <p class="text-base mt-3 mb-0">
+                        <p class="mt-3 mb-0">
                             Imagem {{ indiceMidia + 1 }} de {{ fotos.length }}
                         </p>
                     </div>
-                    <div class="br-modal-footer justify-content-between">
+                    <div class="br-modal-footer row justify-content-between">
                         <button class="br-button secondary" type="button" :disabled="fotos.length < 2" @click="navegarMidia(-1)">
                             <i class="fas fa-chevron-left" aria-hidden="true"></i>
                             Anterior

@@ -1,9 +1,5 @@
 <script setup>
-        import { ref, onMounted, onUnmounted } from 'vue';
-        import { router } from '@inertiajs/vue3';
-
-        const isOpen = ref(false);
-        const dropdownRef = ref(null);
+        import { ref } from 'vue';
         //---botoes
         const isHighContrast = ref(false);
 
@@ -25,46 +21,33 @@
         fontSize.value = 100;
         document.documentElement.style.removeProperty('font-size');
         };
-
-
-        // Abre/Fecha o menu
-        const toggle = () => {
-            isOpen.value = !isOpen.value;
-        };
-
-        // Fecha o menu se clicar em qualquer lugar fora dele
-        const closeOnClickOutside = (e) => {
-            if (dropdownRef.value && !dropdownRef.value.contains(e.target)) {
-                isOpen.value = false;
-            }
-        };
-
-        onMounted(() => {
-            window.addEventListener('click', closeOnClickOutside);
-            // IMPORTANTE PARA INERTIA: Fecha o menu ao mudar de página
-            router.on('navigate', () => isOpen.value = false);
-        });
-
-        onUnmounted(() => {
-            window.removeEventListener('click', closeOnClickOutside);
-        });
 </script>
 
 <template>
-    <div ref="dropdownRef" class="header-functions dropdown">
-            <!-- Botões seguindo a anatomia do Header GovBR -->
-            <div class="header-functions">
+    <div class="header-functions dropdown">
+        <button class="br-button circle small" type="button" data-toggle="dropdown" aria-label="Abrir Funcionalidades do Sistema">
+            <i class="fas fa-th" aria-hidden="true"></i>
+        </button>
+        <div class="br-list">
+            <div class="header"><div class="title">Funcionalidades do Sistema</div></div>
+            <div class="br-item">
                 <button class="br-button circle small" type="button" @click="toggleContrast" aria-label="Alto Contraste">
                     <i class="fas fa-adjust" aria-hidden="true"></i>
-                </button>
-                <button class="br-button circle small" type="button" @click="changeFontSize(10)" aria-label="Aumentar Fonte">
-                    <i class="fas fa-search-plus" aria-hidden="true"></i>
-                </button>
-                <button class="br-button circle small" type="button" @click="changeFontSize(-10)" aria-label="Diminuir Fonte">
-                    <i class="fas fa-search-minus" aria-hidden="true"></i>
+                    <span class="text">Alto Contraste</span>
                 </button>
             </div>
-
-            <!-- Adicione os outros itens conforme seu HTML original -->
+            <div class="br-item">
+                <button class="br-button circle small" type="button" @click="changeFontSize(10)" aria-label="Aumentar Fonte">
+                    <i class="fas fa-search-plus" aria-hidden="true"></i>
+                    <span class="text">Aumentar Fonte</span>
+                </button>
+            </div>
+            <div class="br-item">
+                <button class="br-button circle small" type="button" @click="changeFontSize(-10)" aria-label="Diminuir Fonte">
+                    <i class="fas fa-search-minus" aria-hidden="true"></i>
+                    <span class="text">Diminuir Fonte</span>
+                </button>
+            </div>
+        </div>
     </div>
 </template>

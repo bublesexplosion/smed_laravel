@@ -16,10 +16,6 @@
         <div class="row justify-content-center">
             <div class="col-md-10 col-lg-8">
 
-                <!-- Link de Voltar mais elegante -->
-                <Link href="/" class="btn btn-outline-secondary btn-sm mb-4">
-                    <i class="fas fa-arrow-left me-2"></i> Voltar ao início
-                </Link>
                 <Link href="/noticias" class="br-button primary mb-4 ms-2">
                     <i class="fas fa-newspaper me-2"></i> Ver notícias
                 </Link>

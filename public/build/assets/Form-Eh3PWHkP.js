@@ -1,1 +1,0 @@
-import{N as e,O as t,_ as n,v as r}from"./index.esm-BpUHPf3W.js";import{t as i}from"./AdminLayout-U5wvaP5i.js";var a={__name:`Form`,setup(a){return(a,o)=>(t(),r(i,null,{default:e(()=>[...o[0]||=[n(`div`,{class:`p-4`},[n(`h1`,null,`Em desenvolvimento`)],-1)]]),_:1}))}};export{a as default};

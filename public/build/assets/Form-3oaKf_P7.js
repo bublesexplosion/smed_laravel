@@ -1,0 +1,1 @@
+import{E as e,_ as t,g as n,j as r}from"./app-CPcV4E6p.js";import{t as i}from"./AdminLayout-MOWvALtQ.js";var a={__name:`Form`,setup(a){return(a,o)=>(e(),t(i,null,{default:r(()=>[...o[0]||=[n(`div`,{class:`p-4`},[n(`h1`,null,`Em desenvolvimento`)],-1)]]),_:1}))}};export{a as default};
