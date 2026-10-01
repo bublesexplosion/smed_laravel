@@ -20,17 +20,15 @@
             <span class="icon"><i class="fas fa-home" aria-hidden="true"></i></span>
             <span class="content">Início</span>
           </a>
-          <!-- Item com sub-itens (Gestão Pedagógica) -->
+          <!-- Item com sub-itens -->
           <div class="menu-folder">
             <a class="menu-item" href="javascript:void(0)">
-              <span class="icon"><i class="fas fa-graduation-cap" aria-hidden="true"></i></span>
-              <span class="content">Gestão Pedagógica</span>
+              <span class="icon"><i class="fas fa-edit" aria-hidden="true"></i></span>
+              <span class="content">Cadastros</span>
             </a>
-            <ul class="menu-folder-list">
-              <li><a class="menu-item" href="#"><span class="content">Atividades</span></a></li>
-              <li><a class="menu-item" href="#"><span class="content">Núcleos Pedagógicos</span></a></li>
-              <li><a class="menu-item" href="#"><span class="content">Programas</span></a></li>
-              <li><a class="menu-item" href="#"><span class="content">Projetos</span></a></li>
+            <ul>
+              <li><a class="menu-item" href="#"><span class="content">Usuários</span></a></li>
+              <li><a class="menu-item" href="#"><span class="content">Configurações</span></a></li>
             </ul>
           </div>
         </nav>
@@ -46,36 +44,13 @@
 </template>
 
 <script setup>
-import { onMounted, nextTick } from 'vue';
+import { onMounted } from 'vue';
 
-onMounted(async () => {
-  await nextTick();
-
-  const initMenu = () => {
-    if (window.core && window.core.BRMenu) {
-      const brMenus = window.document.querySelectorAll('.br-menu');
-      brMenus.forEach(brMenu => {
-        new window.core.BRMenu('br-menu', brMenu);
-      });
-    } else {
-      console.warn('Gov.br core.js não encontrado. Os dropdowns do menu não funcionarão.');
-    }
-  };
-
-  initMenu();
-  setTimeout(initMenu, 100);
+onMounted(() => {
+  // Inicializa o comportamento do Menu (JS do GOVBR)
+  const menuList = [];
+  for (const brMenu of window.document.querySelectorAll('.br-menu')) {
+    menuList.push(new window.core.BRMenu('br-menu', brMenu));
+  }
 });
 </script>
-
-<style scoped>
-/* Garante que os submenus do hamburger comecem FECHADOS */
-/* Isso permite que o JS do Gov.br faça o toggle (collapse) corretamente */
-.menu-folder ul {
-    display: none;
-}
-
-/* Quando o JS do Gov.br adiciona a classe 'active', o menu abre */
-.menu-folder.active ul {
-    display: block;
-}
-</style>
