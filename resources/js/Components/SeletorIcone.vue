@@ -8,7 +8,9 @@ const iconesAgrupados = [
       { classe: 'fas fa-building', label: '🏢 Prefeitura / Prédio' },
       { classe: 'fas fa-info-circle', label: 'ℹ️ Informações' },
       { classe: 'fas fa-map-marker-alt', label: '📍 Localização' },
-      { classe: 'fas fa-link', label: '🔗 Link Padrão' }
+      { classe: 'fas fa-link', label: '🔗 Link Padrão' },
+      { classe: 'fas fa-bars', label: '☰ Menu / Barras' },
+      { classe: 'fas fa-user-shield', label: '🛡️ Administrador' }
     ]
   },
   {

@@ -13,64 +13,64 @@
         <nav class="mt-2">
           
           <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu">
-            
-            <!-- Link Fixo: Dashboard (Sempre visível) -->
-            <li class="nav-item">
-              <Link :href="route('dashboard')" 
-                    class="nav-link" 
-                    :class="{ 'active': $page.component === 'Dashboard' }">
-                <i class="nav-icon fas fa-chart-line"></i>
-                <p>Dashboard</p>
-              </Link>
-            </li>
-      
-          <!-- LOOP DINÂMICO: SEÇÕES -->
-        <template v-for="section in menuLocal" :key="'sec-' + section.id">
-          
-          <!-- Mantemos 'nav-item' para o CSS, mas o AdminLTE não vai interceptar devido ao .stop no link -->
-          <li v-if="(section.menuItems?.length > 0) || (section.menu_items?.length > 0)" 
-              class="nav-item" 
-              :class="{ 'menu-open': section.isOpen }">
-            
-            <!-- O .stop impede que o evento suba e seja pego pelo jQuery do AdminLTE -->
-            <a href="#" class="nav-link" @click.stop.prevent="section.isOpen = !section.isOpen">
-              <i :class="[section.icon || 'fas fa-folder', 'nav-icon']"></i>
-              <p>
-                {{ section.name }}
-                <i class="right fas fa-angle-left" :style="section.isOpen ? 'transform: rotate(-90deg); transition: transform 0.3s;' : 'transition: transform 0.3s;'"></i>
-              </p>
-            </a>
+              <!-- Link Fixo: Dashboard (Sempre visível) -->
+              <li class="nav-item">
+                <Link :href="route('dashboard')" 
+                      class="nav-link" 
+                      :class="{ 'active': $page.component === 'Dashboard' }">
+                  <i class="nav-icon fas fa-chart-line"></i>
+                
+                  <p :class="route().current('dashboard') ? 'text-white' : 'text-dark'">
+                      Dashboard
+                  </p>
 
-            <!-- SUBMENU COM TRANSIÇÃO SUAVE -->
-            <transition 
-              name="menu-slide"
-              @before-enter="beforeEnter"
-              @enter="enter"
-              @after-enter="afterEnter"
-              @before-leave="beforeLeave"
-              @leave="leave"
-              @after-leave="afterLeave"
-            >
-              <!-- Mantemos a classe original para alinhar verticalmente como lista -->
-              <ul v-show="section.isOpen" class="nav nav-treeview">
-                <li v-for="item in (section.menuItems || section.menu_items)" :key="'item-' + item.id" class="nav-item">
-                 <!-- Altere a linha 57 do seu AdminLayout.vue para esta estrutura -->
-                  <Link 
-                    :href="item.link.startsWith('/') ? item.link : route(item.link)" 
-                    class="nav-link" 
-                    :class="{ 'active': $page.url === item.link || $page.url.startsWith(item.link) }"
+                </Link>
+              </li>
+        
+              <!-- LOOP DINÂMICO: SEÇÕES -->
+              <template v-for="section in menuLocal" :key="'sec-' + section.id">
+                <!-- Mantemos 'nav-item' para o CSS, mas o AdminLTE não vai interceptar devido ao .stop no link -->
+                <li v-if="(section.menuItems?.length > 0) || (section.menu_items?.length > 0)" 
+                    class="nav-item" 
+                    :class="{ 'menu-open': section.isOpen }">
+                  
+                  <!-- O .stop impede que o evento suba e seja pego pelo jQuery do AdminLTE -->
+                  <a href="#" class="nav-link" @click.stop.prevent="section.isOpen = !section.isOpen">
+                    <i :class="[section.icon || 'fas fa-folder', 'nav-icon']"></i>
+                    <p>
+                      {{ section.name }}
+                      <i class="right fas fa-angle-left" :style="section.isOpen ? 'transform: rotate(-90deg); transition: transform 0.3s;' : 'transition: transform 0.3s;'"></i>
+                    </p>
+                  </a>
+
+                  <!-- SUBMENU COM TRANSIÇÃO SUAVE -->
+                  <transition 
+                    name="menu-slide"
+                    @before-enter="beforeEnter"
+                    @enter="enter"
+                    @after-enter="afterEnter"
+                    @before-leave="beforeLeave"
+                    @leave="leave"
+                    @after-leave="afterLeave"
                   >
-                    <i :class="[item.icon || 'fas fa-circle', 'nav-icon']"></i>
-                    <p>{{ item.label }}</p>
-                  </Link>
+                    <!-- Mantemos a classe original para alinhar verticalmente como lista -->
+                    <ul v-show="section.isOpen" class="nav nav-treeview">
+                      <li v-for="item in (section.menuItems || section.menu_items)" :key="'item-' + item.id" class="nav-item">
+                      <!-- Altere a linha 57 do seu AdminLayout.vue para esta estrutura -->
+                        <Link 
+                          :href="item.link.startsWith('/') ? item.link : route(item.link)" 
+                          class="nav-link" 
+                          :class="{ 'active': $page.url === item.link || $page.url.startsWith(item.link) }"
+                        >
+                          <i :class="[item.icon || 'fas fa-circle', 'nav-icon']"></i>
+                          <p>{{ item.label }}</p>
+                        </Link>
+                      </li>
+                    </ul>
+                  </transition>
+
                 </li>
-              </ul>
-            </transition>
-
-          </li>
-        </template>
-
-
+              </template>
           </ul>
         </nav>
       </div>
@@ -224,7 +224,7 @@
         margin-left: 10px;
     }
     .sidebar-light-primary .nav-sidebar > .nav-item > .nav-link.active {
-        background-color: #1351b4 !important; /* Azul GovBR */
+        background-color: #1351B4 !important; /* Azul GovBR */
         color: #fff !important;
     }
     .content-wrapper {
@@ -242,4 +242,5 @@
   margin: 0;
   padding-left: 1rem; /* Mantém o recuo dos subitens */
 }
+
 </style>

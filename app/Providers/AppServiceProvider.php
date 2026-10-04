@@ -3,7 +3,6 @@
 namespace App\Providers;
 
 use Illuminate\Support\Facades\Vite;
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 use JeroenNoten\LaravelAdminLte\Events\BuildingMenu;
 use Illuminate\Support\Facades\Event;
@@ -24,9 +23,6 @@ class AppServiceProvider extends ServiceProvider
      */
    public function boot()
 {
-    // Compatibilidade com MySQL 5.7 usando utf8mb4 e limite de índice de 1000 bytes.
-    Schema::defaultStringLength(191);
-
     Event::listen(BuildingMenu::class, function (BuildingMenu $event) {
         $user = auth()->user();
         if (!$user) return;

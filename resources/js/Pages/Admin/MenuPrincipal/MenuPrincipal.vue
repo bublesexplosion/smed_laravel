@@ -34,7 +34,8 @@
     // Função de exclusão de item
     function deleteMenu(id) {
         if (confirm('Tem certeza que deseja excluir este item?')) {
-            router.delete(`${window.location.origin}/admin/prefeitura/menuprincipal/${id}`, {
+            // Usa o caminho /admin/Menuprincipal/ com a barra inicial
+            router.delete(`/admin/Menuprincipal/${id}`, {
                 preserveState: false
             });
         }

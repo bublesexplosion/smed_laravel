@@ -96,4 +96,14 @@
     .carousel-control-next-icon {
         filter: drop-shadow(0px 0px 3px rgba(0,0,0,0.5));
     }
+    .br-card.hover:hover {
+    background-color: #1351B4 !important; /* Mude para a cor desejada em hex, rgb ou nome */
+     transition: background-color 0.2s ease-in-out; /* Suaviza a transição de cor */
+    }
+    .br-card.hover:hover p,
+    .br-card.hover:hover h2
+    {
+        color: rgb(224, 230, 234) !important;
+        font-weight: 700 !important;
+    }
 </style>

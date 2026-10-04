@@ -1,15 +1,15 @@
 <template>
   <footer class="bg-[#001c3d] text-white py-10">
     <div class="container mx-auto px-4">
-
+      
       <!-- Logo Superior -->
       <div class="mb-12">
-        <img src="/images/logo.png" alt="SMED Laravel" class="h-14">
+        <img src="/images/logo.png" alt="Basico" class="h-14">
       </div>
 
       <!-- Grid de Links (Todos brancos agora) -->
       <div class="grid grid-cols-1 md:grid-cols-4 gap-8 border-b border-white/20 pb-12">
-
+        
         <!-- Coluna 1 -->
         <div>
           <h4 class="font-bold uppercase text-xs tracking-widest mb-6 text-white">Prefeitura</h4>
@@ -18,7 +18,7 @@
             <li><a href="#" class="text-white/80 hover:text-white transition-colors">Administração Direta</a></li>
             <li><a href="#" class="text-white/80 hover:text-white transition-colors">Administração Indireta</a></li>
             <li><a href="#" class="text-white/80 hover:text-white transition-colors">Conselhos</a></li>
-
+         
           </ul>
         </div>
 
@@ -67,7 +67,7 @@
 
         <!-- Selos/Imagens da Direita conforme o print -->
         <div class="flex flex-col sm:flex-row gap-3 mt-8 md:mt-0">
-
+           
             <a href="https://www.gov.br/acessoainformacao/pt-br"  target="_blank" class="flex items-center space-x-3  px-4 py-2 hover:bg-white/5 transition-colors">
               <div class="w-8 h-8 flex items-center justify-center">
                 <!-- Ícone Acesso à Informação (Lupa com cadeado) -->
@@ -77,7 +77,7 @@
                 Acesso à <br> Informação
               </div>
             </a>
-
+          
             <a href="https://www.gov.br/pt-br"  target="_blank" class="flex items-center space-x-3  rounded px-4 py-2 hover:bg-white/5 transition-colors">
               <div class="w-10 h-10 flex items-center justify-center">
                 <!-- Ícone Brasão (Geralmente uma imagem, mas usamos ícone para teste) -->
@@ -87,7 +87,7 @@
                 Governo <br> Federal
               </div>
             </a>
-
+        
         </div>
       </div>
     </div>
