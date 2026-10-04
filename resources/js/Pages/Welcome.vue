@@ -1,5 +1,5 @@
 <template>
-  <Head title="Prefeitura Municipal do Rio Grande" />  
+  <Head title="Prefeitura Municipal do Rio Grande" />
   <div class="bg-white min-vh-100">
     <!-- O Header precisa estar aqui -->
     <WelcomeHeader />
@@ -13,12 +13,11 @@
     </div>
 
     <main class="container py-4 bg-white shadow-sm rounded">
-        <div class="row justify-content-center">
-            <div class="col-md-10 col-lg-8">
-                
-                <!-- Link de Voltar mais elegante -->
-                <Link href="/" class="btn btn-outline-secondary btn-sm mb-4">
-                    <i class="fas fa-arrow-left me-2"></i> Voltar ao início
+        <div class="row">
+            <div class="col-md-8">
+
+                <Link href="/noticias" class="br-button primary mb-4 ms-2">
+                    <i class="fas fa-newspaper me-2"></i> Ver notícias
                 </Link>
 
                 <!-- Conteúdo com espaçamento entre parágrafos -->
@@ -26,30 +25,34 @@
                     <p class="mb-4">
                         Cidade mais antiga do estado, Rio Grande está localizada na margem Sul do estuário que conduz ao oceano as águas da imensa Laguna dos Patos e seus afluentes.Em 1680, Portugal funda a Colônia do Sacramento, na margem esquerda do estuário do Prata, defronte a Buenos Aires. Próximo à barra chamada do Rio Grande de São Pedro, único acesso oferecido à navegação na costa contínua deveria estabelecer-se o núcleo pioneiro, de onde Portugal faria irradiar o povoamento, consolidando a posse da terra. Favorecendo a infiltração de seus súditos, através de Laguna (Santa Catarina) implantada em 1684, Portugal assentara a base de ocupação do Continente de São Pedro, através de estabelecimentos de criação de gado a ocupar grandes extensões de terra. Essa ocupação fez sentir a necessidade de assistência religiosa e, antes de qualquer ação oficial, que estendesse a soberania lusitana ao Continente cobiçado, uma Provisão de 6 de agosto de 1736 criava a Freguesia de São Pedro,a abranger todo o seu território.
                     </p>
-                    
+
                     <div class="my-5 border-start border-4  ps-4 py-2 bg-light">
                         <h4 class=" text-center italic">"No dia 19 de fevereiro de 1737 </h4>
                         <h4 class="text-center">    a cidade foi fundada pelo Brigadeiro José da Silva Paes"</h4>
                     </div>
 
-                    
+
                 </article>
 
+            </div>
+            <div class="col-md-4">
+                <SidebarInstitucional />
             </div>
         </div>
     </main>
     <!-- O Footer entra aqui -->
     <WelcomeFooter />
-         
+
    </div>
 </template>
 
 <script setup>
     import { Link, Head } from '@inertiajs/vue3';
     import WelcomeHeader from '@/Components/WelcomeHeader.vue';
-    import { ref, onMounted, onUnmounted, computed } from 'vue'; 
-    import WelcomeFooter from '@/Components/WelcomeFooter.vue'; 
-   
+    import { ref, onMounted, onUnmounted, computed } from 'vue';
+    import WelcomeFooter from '@/Components/WelcomeFooter.vue';
+    import SidebarInstitucional from '@/Components/SidebarInstitucional.vue';
+
    const props = defineProps({
     errors: Object,
     auth: Object,
@@ -58,12 +61,12 @@
 
     // 3. Acessibilidade e Inicialização
     onMounted(() => {
-       
-        
+
+
         if (localStorage.getItem('contrast-mode') === 'true') {
             document.body.classList.add('br-high-contrast');
         }
-        
+
         const savedFontSize = localStorage.getItem('font-size-pwa');
         if (savedFontSize) {
             document.documentElement.style.fontSize = `${savedFontSize}%`;
@@ -88,25 +91,25 @@
         const script = document.createElement('script');
         script.src = "https://vlibras.gov.br/app/vlibras-plugin.js";
         script.async = true;
-        
+
         // 3. Inicializa o bonequinho assim que o arquivo baixar por completo
         script.onload = () => {
             if (window.VLibras) {
                 new window.VLibras.Widget('https://vlibras.gov.br/app');
             }
         };
-        
+
         document.head.appendChild(script);
         // ==========================================
     });
 
-   
+
 </script>
 
 <style scoped>
         /* 1. Força o fundo da seção e dos cards para branco */
-        .br-card, 
-        .card-content, 
+        .br-card,
+        .card-content,
         .br-list,
         .br-item {
             background-color: #ffffff !important; /* Branco absoluto no modo normal */
@@ -121,7 +124,7 @@
             min-height: 44px;
         }
 
-       
+
 
         /* 4. Ícones em cinza escuro */
         .br-item i {
